@@ -1,2 +1,6 @@
 /* src/index.css */
 @import "tailwindcss";
+
+body {
+    font-family: "Gelion", Helvetica, "Helvetica Neue", Arial, sans-serif;
+}
