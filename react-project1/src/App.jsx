@@ -6,10 +6,11 @@ import Pricing from "./components/Pricing";
 import Testimonials from "./components/Testimonials";
 import Footer from "./components/Footer";
 import SignUp from "./components/SignUp";
+import Login from "./components/Login";
 
 function App() {
     return (
-        <div className="min-h-screen bg-slate-950 text-white overflow-hidden">
+        <div className="min-h-screen bg-slate-950 text-white w-full sm:w-full mx-auto">
             <Routes>
                 <Route
                     path="/"
@@ -25,6 +26,7 @@ function App() {
                     }
                 />
                 <Route path="/signup" element={<SignUp />} />
+                <Route path="/login" element={<Login />} />
             </Routes>
         </div>
     );
