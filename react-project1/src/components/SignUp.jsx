@@ -11,6 +11,7 @@ import PasswordStrengthMeter from "./utils/PasswordStrengthMeter";
 export default function SignUp() {
     const [showPassword, setShowPassword] = useState(false);
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+    const isPasswordStrongEnough = passwordScore >= 4;
 
     const { fieldValues, handleChange } = useFormFields({
         firstName: "",
@@ -184,8 +185,17 @@ export default function SignUp() {
                                 <div>
                                     <input
                                         type="submit"
-                                        value="Create Account"
-                                        className="bg-blue-500 text-white p-2 mt-5 rounded-md w-full border-0 outline-none focus:ring-0"
+                                        value={
+                                            isPasswordStrongEnough
+                                                ? "Create Account"
+                                                : "Password Too Weak"
+                                        }
+                                        className={`bg-blue-500 text-white p-2 mt-5 rounded-md w-full border-0 outline-none focus:ring-0 ${
+                                            isPasswordStrongEnough
+                                                ? "hover:bg-blue-600 cursor-pointer"
+                                                : "opacity-50 cursor-not-allowed"
+                                        }`}
+                                        disabled={!isPasswordStrongEnough}
                                     />
                                     <hr className="my-6 border-t border-gray-500" />
                                 </div>
