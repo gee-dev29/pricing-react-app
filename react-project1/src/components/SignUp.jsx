@@ -1,9 +1,12 @@
 import React from "react";
 import { useState } from "react";
 import { FiLock, FiUser, FiMail, FiEye, FiEyeOff } from "react-icons/fi";
-// import { SiGoogle, SiFacebook, SiApple, SiMicrosoft } from "react-icons/si";
+import { SiApple } from "react-icons/si";
+import { FcGoogle } from "react-icons/fc";
+import { FaMicrosoft } from "react-icons/fa";
 import Logo from "../assets/react.svg";
 import useFormFields from "./hooks/UseFormFields";
+import PasswordStrengthMeter from "./utils/PasswordStrengthMeter";
 
 export default function SignUp() {
     const [showPassword, setShowPassword] = useState(false);
@@ -17,35 +20,22 @@ export default function SignUp() {
         confirmPassword: "",
     });
     return (
-        <div>
+        <div className="min-h-screen grid grid-cols-1 lg:grid-cols-2">
             {/* // left section  */}
             <div>
                 {/* Navbar */}
-                <nav className="bg-slate-900 flex justify-between items-center p-4 font-sans">
+                <nav className=" flex justify-between items-center p-4 font-sans">
                     <div className="flex items-center space-x-2">
                         <img src={Logo} alt="logo" />
-                        <span className="text-xl text-bold">
-                            Front Development Course
-                        </span>
-                    </div>
-                    <div className="">
-                        <p className="text-sm">
-                            Already have an account?{" "}
-                            <a
-                                href="/login"
-                                className="text-blue-500 hover:text-white"
-                            >
-                                Log in
-                            </a>
-                        </p>
+                        <span className="text-xl text-bold">Pricing App</span>
                     </div>
                 </nav>
                 {/* Form */}
-                <div className="bg-slate-950 text-white h-screen flex flex-col m-40 items-center shadow-sm">
-                    <form className="flex justify-center items-center mt-10 w-full border border-slate-800 p-10 rounded-md max-w-md ">
-                        {/* First and Last Name  */}
+                <div className="flex flex-col justify-center items-center px-4 py-10 lg:h-[90vh]">
+                    <form className="w-full border border-slate-800 p-10 rounded-md max-w-md shadow-lg hover:border-blue-700 hover:ring-2 hover:ring-blue-500/40">
                         <div>
                             <div className=" flex justify-between space-x-7 mb-6  ">
+                                {/* First and Last Name  */}
                                 {/* first name */}
                                 <div className="relative group">
                                     <FiUser
@@ -57,7 +47,7 @@ export default function SignUp() {
                                     }`}
                                     />
                                     <input
-                                        className="bg-slate-800 pl-10 text-white p-2 rounded-md w-full border-0 outline-none focus:ring-0 placeholder-white/15  hover:placeholder-white/50"
+                                        className="bg-slate-900 pl-10 text-white p-2 rounded-md w-full border border-transparent hover:border-slate-700 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/40 outline-none placeholder-white/35 hover:placeholder-white/50"
                                         type="text"
                                         value={fieldValues.firstName}
                                         id="firstName"
@@ -77,7 +67,7 @@ export default function SignUp() {
                                     }`}
                                     />
                                     <input
-                                        className="bg-slate-800 pl-10 text-white p-2 rounded-md w-full border-0 outline-none focus:ring-0 placeholder-white/15  hover:placeholder-white/50"
+                                        className="bg-slate-900 pl-10 text-white p-2 rounded-md w-full border border-transparent hover:border-slate-700 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/40 outline-none placeholder-white/35 hover:placeholder-white/50"
                                         type="text"
                                         value={fieldValues.lastName}
                                         id="lastName"
@@ -87,8 +77,8 @@ export default function SignUp() {
                                     />
                                 </div>
                             </div>
-                            {/* Email */}
                             <div className="space-y-4">
+                                {/* Email */}
                                 <div className="relative group">
                                     <FiMail
                                         className={`absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 transition-opacity duration-200 group-focus-within:opacity-0
@@ -99,7 +89,7 @@ export default function SignUp() {
                                         }`}
                                     />
                                     <input
-                                        className="bg-slate-800 text-white p-2 pl-10 rounded-md w-full border-0 outline-none focus:ring-0 placeholder-white/15  hover:placeholder-white/50"
+                                        className="bg-slate-900 pl-10 text-white p-2 rounded-md w-full border border-transparent hover:border-slate-700 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/40 outline-none placeholder-white/35 hover:placeholder-white/50"
                                         type="email"
                                         id="email"
                                         value={fieldValues.email}
@@ -120,8 +110,8 @@ export default function SignUp() {
                                             }`}
                                     />
                                     <input
-                                        className="bg-slate-800 pl-10 text-white p-2 rounded-md w-full border-0 outline-none focus:ring-0 placeholder-white/15  hover:placeholder-white/50
-                                        autofill:bg-slate-800 autofill:text-white [&:-webkit-autofill]:bg-slate-800 [&:-webkit-autofill]:text-white [&:-webkit-autofill]:shadow-[inset_0_0_0px_1000px_rgb(15,23,42)]"
+                                        className="bg-slate-900 pl-10 text-white p-2 rounded-md w-full border border-transparent hover:border-slate-700 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/40 outline-none placeholder-white/35 hover:placeholder-white/50
+                                        autofill:bg-slate-900 autofill:text-white [&:-webkit-autofill]:bg-slate-900 [&:-webkit-autofill]:text-white [&:-webkit-autofill]:shadow-[inset_0_0_0px_1000px_rgb(15,23,42)]"
                                         type={
                                             showPassword ? "text" : "password"
                                         }
@@ -131,6 +121,9 @@ export default function SignUp() {
                                         placeholder="Password"
                                         autoComplete="new-password"
                                         required
+                                    />
+                                    <PasswordStrengthMeter
+                                        password={fieldValues.password}
                                     />
                                     <button
                                         type="button"
@@ -158,7 +151,7 @@ export default function SignUp() {
                                             }`}
                                     />
                                     <input
-                                        className="bg-slate-800 pl-10 text-white p-2 rounded-md w-full border-0 outline-none focus:ring-0 placeholder-white/15 hover:placeholder-white/50"
+                                        className="bg-slate-900 pl-10 text-white p-2 rounded-md w-full border border-transparent hover:border-slate-700 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/40 outline-none placeholder-white/35 hover:placeholder-white/50"
                                         type={
                                             showConfirmPassword
                                                 ? "text"
@@ -167,7 +160,7 @@ export default function SignUp() {
                                         id="password"
                                         value={fieldValues.confirmPassword}
                                         onChange={handleChange(
-                                            "confirmPassword"
+                                            "confirmPassword",
                                         )}
                                         placeholder="Confirm Password"
                                         required
@@ -176,7 +169,7 @@ export default function SignUp() {
                                         type="button"
                                         onClick={() =>
                                             setShowConfirmPassword(
-                                                !showConfirmPassword
+                                                !showConfirmPassword,
                                             )
                                         }
                                         className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-white focus:outline-none"
@@ -198,22 +191,35 @@ export default function SignUp() {
                                 </div>
                             </div>
                             {/* Social Account Sign Up */}
-                            <div>
-                                <div className=" flex justify-between space-x-3 mb-3">
+                            <div className="mt-10">
+                                <div className=" flex justify-between space-x-3 mb-4 ">
                                     {/* Google Sign Up */}
-                                    <div className="text-white p-3 pl-4 pr-5 text-sm font-light rounded-md border border-gray-600 flex justify-center items-center space-x-2 hover:border-slate-800 cursor-pointer">
-                                        {/* <SiGoogle className="inline-block text-black mr-2" /> */}
-                                        Sign up with Google
+                                    <div className=" p-3 pl-4 pr-5 text-xs font-light rounded-md border border-gray-600 flex justify-center items-center space-x-2 hover:border-slate-800 cursor-pointer">
+                                        <FcGoogle />
+                                        <span>Sign up with Google</span>
                                     </div>
                                     {/* Microsoft Sign Up */}
                                     <div>
-                                        <div className="text-white p-3 pl-4 pr-5 text-sm border font-light border-gray-600 p-2 flex justify-center items-center rounded-md space-x-2 hover:bg-slate-800 cursor-pointer">
-                                            Sign up with Microsoft
+                                        <div className=" p-3 pl-4 pr-5 text-xs border font-light border-gray-600 flex justify-center items-center rounded-md space-x-2 hover:border-slate-800 cursor-pointer">
+                                            <FaMicrosoft />
+                                            <span>Sign up with Microsoft</span>
                                         </div>
                                     </div>
                                 </div>
-                                <div className="text-white p-3 pl-4 pr-5 text-sm font-light rounded-md border border-gray-600 flex justify-center items-center space-x-2 hover:border-slate-800 cursor-pointer">
-                                    Sign up with Apple
+                                <div className="text-white p-3 pl-4 pr-5 text-xs font-light rounded-md border border-gray-600 flex justify-center items-center space-x-2 hover:border-slate-800 cursor-pointer">
+                                    <SiApple />
+                                    <span>Sign up with Apple</span>
+                                </div>
+                                <div className="mr-10 flex justify-center items-center mt-6">
+                                    <p className="text-sm">
+                                        Already have an account?{" "}
+                                        <a
+                                            href="/login"
+                                            className="text-blue-500 hover:text-white"
+                                        >
+                                            Log in
+                                        </a>
+                                    </p>
                                 </div>
                             </div>
                         </div>
@@ -221,7 +227,17 @@ export default function SignUp() {
                 </div>
             </div>
             {/* // right section */}
-            <div></div>
+            {/* image section */}
+            <div className=" hidden lg:flex flex-col bg-slate-950 lg:justify-center lg:items-center p-10 ">
+                <h2 className="text-3xl font-semibold mb-4">
+                    Welcome to my Pricing App
+                </h2>
+                <p className="text-center">
+                    Join us today and take advantage of our exclusive pricing
+                    plans designed to fit your needs!
+                </p>
+            </div>
         </div>
     );
 }
+``;
