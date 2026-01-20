@@ -7,11 +7,12 @@ import { FaMicrosoft } from "react-icons/fa";
 import Logo from "../assets/react.svg";
 import useFormFields from "./hooks/UseFormFields";
 import PasswordStrengthMeter from "./utils/PasswordStrengthMeter";
+import { evaluatePasswordStrength } from "./utils/PasswordStrength";
+import BackgroundImage from "./image/image_1_1768833455188.jpg";
 
 export default function SignUp() {
     const [showPassword, setShowPassword] = useState(false);
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-    const isPasswordStrongEnough = passwordScore >= 4;
 
     const { fieldValues, handleChange } = useFormFields({
         firstName: "",
@@ -20,8 +21,17 @@ export default function SignUp() {
         password: "",
         confirmPassword: "",
     });
+
+    const isMatchingPasswords =
+        fieldValues.password !== "" &&
+        fieldValues.confirmPassword !== "" &&
+        fieldValues.password === fieldValues.confirmPassword;
+    const passwordScore = evaluatePasswordStrength(fieldValues.password);
+    const isPasswordStrongEnough = passwordScore > 4;
+    const canSubmit = isPasswordStrongEnough && isMatchingPasswords;
+
     return (
-        <div className="min-h-screen grid grid-cols-1 lg:grid-cols-2">
+        <div className="min-h-screen grid grid-cols-1 lg:grid-cols-2 bg-[url('../image/image_1_1768821404407.jpg')] bg-cover bg-center">
             {/* // left section  */}
             <div>
                 {/* Navbar */}
@@ -158,7 +168,7 @@ export default function SignUp() {
                                                 ? "text"
                                                 : "password"
                                         }
-                                        id="password"
+                                        id="confirmPassword"
                                         value={fieldValues.confirmPassword}
                                         onChange={handleChange(
                                             "confirmPassword",
@@ -166,6 +176,7 @@ export default function SignUp() {
                                         placeholder="Confirm Password"
                                         required
                                     />
+
                                     <button
                                         type="button"
                                         onClick={() =>
@@ -186,16 +197,20 @@ export default function SignUp() {
                                     <input
                                         type="submit"
                                         value={
-                                            isPasswordStrongEnough
+                                            !fieldValues.password
                                                 ? "Create Account"
-                                                : "Password Too Weak"
+                                                : !isPasswordStrongEnough
+                                                  ? "Password Too Weak"
+                                                  : !isMatchingPasswords
+                                                    ? "Passwords Do Not Match"
+                                                    : "Create Account"
                                         }
                                         className={`bg-blue-500 text-white p-2 mt-5 rounded-md w-full border-0 outline-none focus:ring-0 ${
-                                            isPasswordStrongEnough
+                                            canSubmit
                                                 ? "hover:bg-blue-600 cursor-pointer"
                                                 : "opacity-50 cursor-not-allowed"
                                         }`}
-                                        disabled={!isPasswordStrongEnough}
+                                        disabled={!canSubmit}
                                     />
                                     <hr className="my-6 border-t border-gray-500" />
                                 </div>
@@ -238,16 +253,43 @@ export default function SignUp() {
             </div>
             {/* // right section */}
             {/* image section */}
-            <div className=" hidden lg:flex flex-col bg-slate-950 lg:justify-center lg:items-center p-10 ">
-                <h2 className="text-3xl font-semibold mb-4">
-                    Welcome to my Pricing App
-                </h2>
-                <p className="text-center">
-                    Join us today and take advantage of our exclusive pricing
-                    plans designed to fit your needs!
-                </p>
+            <div
+                className="relative hidden lg:flex flex-col lg:justify-center lg:items-center p-10 bg-cover bg-center"
+                style={{ backgroundImage: `url(${BackgroundImage})` }}
+            >
+                {/* Background overlay */}
+                <div className="absolute inset-0 bg-black/80"></div>
+
+                {/* Content */}
+                <div className="relative z-10 max-w-2xl text-left">
+                    <div className="border rounded-[30px] w-fit px-6 pt-2 mb-5 border-b-emerald-500 border-t-amber-400 border-l-pink-500 border-r-purple-500">
+                        <h2 className="text-3xl font-semibold mb-4 text-blue-400">
+                            Welcome to my Pricing App
+                        </h2>
+                    </div>
+
+                    <p className="text-[17px] leading-relaxed">
+                        Join us today and take advantage of our exclusive
+                        pricing plans{" "}
+                        <span className="text-white font-medium">
+                            designed to fit your
+                        </span>{" "}
+                        business’s unique needs. Whether you're a small business
+                        or a large{" "}
+                        <span className="text-white font-medium">
+                            enterprise
+                        </span>
+                        , we've got you covered.
+                        <br />
+                        <br />
+                        Start your free trial today and take your business{" "}
+                        <span className="text-white font-medium">
+                            to the next level
+                        </span>{" "}
+                        with our affordable pricing plans.
+                    </p>
+                </div>
             </div>
         </div>
     );
 }
-``;
