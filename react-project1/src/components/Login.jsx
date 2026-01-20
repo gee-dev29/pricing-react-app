@@ -5,6 +5,7 @@ import { SiApple } from "react-icons/si";
 import { FcGoogle } from "react-icons/fc";
 import { FaMicrosoft } from "react-icons/fa";
 import useFormFields from "./hooks/UseFormFields";
+import BackgroundImage from "./image/image_1_1768833455188.jpg";
 
 const Login = () => {
     const [showPassword, setShowPassword] = useState(false);
@@ -126,7 +127,10 @@ const Login = () => {
                 </div>
             </div>
             {/* // right section */}
-            <div className="hidden lg:flex flex-col bg-slate-950 lg:justify-center lg:items-center p-10"></div>
+            <div
+                className="hidden lg:flex flex-col bg-slate-950 lg:justify-center lg:items-center p-10 bg-cover bg-center"
+                style={{ backgroundImage: `url(${BackgroundImage})` }}
+            ></div>
         </div>
     );
 };
