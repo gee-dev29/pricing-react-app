@@ -31,7 +31,7 @@ export default function SignUp() {
     const canSubmit = isPasswordStrongEnough && isMatchingPasswords;
 
     return (
-        <div className="min-h-screen grid grid-cols-1 lg:grid-cols-2 bg-[url('../image/image_1_1768821404407.jpg')] bg-cover bg-center">
+        <div className="min-h-screen grid grid-cols-1 lg:grid-cols-2 bg-[url('../image/image_1_1768821404407.jpg')] ">
             {/* // left section  */}
             <div>
                 {/* Navbar */}
@@ -262,7 +262,7 @@ export default function SignUp() {
 
                 {/* Content */}
                 <div className="relative z-10 max-w-2xl text-left">
-                    <div className="border rounded-[30px] w-fit px-6 pt-2 mb-5 border-b-emerald-500 border-t-amber-400 border-l-pink-500 border-r-purple-500">
+                    <div className="border rounded-[30px] w-fit px-6 pt-2 mb-5 border-b-emerald-700 border-t-amber-700 border-l-pink-700 border-r-purple-700">
                         <h2 className="text-3xl font-semibold mb-4 text-blue-400">
                             Welcome to my Pricing App
                         </h2>
